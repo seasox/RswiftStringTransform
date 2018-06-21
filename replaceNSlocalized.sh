@@ -13,6 +13,7 @@ do
   while IFS= read -r localizable
   do
     replacement=$(ruby ${DIRNAME}/transformToR.rb "$localizable")
+    localizable=`printf "%s" "$localizable" | tr '\n' '\0' | sed 's/\0/\\n/g'`
     echo "$localizable -> $replacement"
     sed -i .bak "s#$localizable#$replacement#g" $filename
     rm "$filename.bak"
