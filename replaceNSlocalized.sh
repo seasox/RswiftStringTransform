@@ -9,7 +9,7 @@ DIRNAME=`dirname $0`
 
 while IFS= read -r filename
 do
-  grep -o "NSLocalizedString(\"[^\")]*\", comment:\s*\"[^\"]*\")" "$filename" > strings.temp
+  grep -o "NSLocalizedString(\"[^\"]*\", comment:\s*\"[^\"]*\")" "$filename" > strings.temp
   while IFS= read -r localizable
   do
     replacement=$(ruby ${DIRNAME}/transformToR.rb "$localizable")
